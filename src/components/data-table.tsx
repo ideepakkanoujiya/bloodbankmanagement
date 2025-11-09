@@ -46,20 +46,25 @@ export function DataTable<TData, TValue>({
     },
   })
 
+  const nameColumn = table.getColumn("name");
+  const patientNameColumn = table.getColumn("patientName");
+  const filterColumn = nameColumn || patientNameColumn;
+  const filterPlaceholder = nameColumn ? "Filter by name..." : "Filter by patient name...";
+
   return (
     <div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter by name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? (table.getColumn("patientName")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => {
-            const nameColumn = table.getColumn("name") || table.getColumn("patientName");
-            nameColumn?.setFilterValue(event.target.value)
+      {filterColumn && (
+        <div className="flex items-center py-4">
+          <Input
+            placeholder={filterPlaceholder}
+            value={(filterColumn?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              filterColumn?.setFilterValue(event.target.value)
             }
-          }
-          className="max-w-sm bg-background/80"
-        />
-      </div>
+            className="max-w-sm bg-background/80"
+          />
+        </div>
+      )}
       <div className="rounded-md border border-border/50">
         <Table>
           <TableHeader>
