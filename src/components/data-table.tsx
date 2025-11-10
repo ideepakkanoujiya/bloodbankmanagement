@@ -8,6 +8,7 @@ import {
   useReactTable,
   getFilteredRowModel,
   ColumnFiltersState,
+  Column,
 } from "@tanstack/react-table"
 
 import {
@@ -48,8 +49,18 @@ export function DataTable<TData, TValue>({
 
   const nameColumn = table.getColumn("name");
   const patientNameColumn = table.getColumn("patientName");
-  const filterColumn = nameColumn || patientNameColumn;
-  const filterPlaceholder = nameColumn ? "Filter by name..." : "Filter by patient name...";
+  
+  let filterColumn: Column<TData, unknown> | undefined;
+  let filterPlaceholder = "Filter...";
+
+  if (nameColumn) {
+    filterColumn = nameColumn;
+    filterPlaceholder = "Filter by name...";
+  } else if (patientNameColumn) {
+    filterColumn = patientNameColumn;
+    filterPlaceholder = "Filter by patient name...";
+  }
+
 
   return (
     <div>
@@ -57,9 +68,9 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center py-4">
           <Input
             placeholder={filterPlaceholder}
-            value={(filterColumn?.getFilterValue() as string) ?? ""}
+            value={(filterColumn.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              filterColumn?.setFilterValue(event.target.value)
+              filterColumn.setFilterValue(event.target.value)
             }
             className="max-w-sm bg-background/80"
           />
