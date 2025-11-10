@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -8,6 +9,17 @@ const initialInventory: InventoryItem[] = bloodGroups.map((group) => ({
   bloodGroup: group,
   units: Math.floor(Math.random() * 20) + 5,
 }));
+
+const initialDonors: Donor[] = [
+    { id: "d1", name: "Alice Johnson", bloodGroup: "O+", contact: "555-0101", lastDonation: "2023-05-15" },
+    { id: "d2", name: "Bob Williams", bloodGroup: "A-", contact: "555-0102", lastDonation: "2023-07-22" },
+    { id: "d3", name: "Charlie Brown", bloodGroup: "B+", contact: "555-0103", lastDonation: "2023-09-01" },
+    { id: "d4", name: "Diana Miller", bloodGroup: "AB-", contact: "555-0104", lastDonation: "2023-11-18" },
+    { id: "d5", name: "Ethan Davis", bloodGroup: "O-", contact: "555-0105", lastDonation: "2024-01-09" },
+    { id: "d6", name: "Fiona Garcia", bloodGroup: "A+", contact: "555-0106", lastDonation: "2024-02-28" },
+    { id: "d7", name: "George Rodriguez", bloodGroup: "B-", contact: "555-0107", lastDonation: "2024-03-12" },
+    { id: "d8", name: "Hannah Martinez", bloodGroup: "AB+", contact: "555-0108", lastDonation: "2024-04-05" },
+];
 
 function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState<T>(() => {
@@ -39,7 +51,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 }
 
 export function useBloodData() {
-  const [donors, setDonors] = useLocalStorage<Donor[]>("bloodflow_donors", []);
+  const [donors, setDonors] = useLocalStorage<Donor[]>("bloodflow_donors", initialDonors);
   const [requests, setRequests] = useLocalStorage<BloodRequest[]>("bloodflow_requests", []);
   const [inventory, setInventory] = useLocalStorage<InventoryItem[]>("bloodflow_inventory", initialInventory);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -103,7 +115,7 @@ export function useBloodData() {
   };
 
   const resetData = useCallback(() => {
-    setDonors([]);
+    setDonors(initialDonors);
     setRequests([]);
     setInventory(initialInventory);
   }, [setDonors, setRequests, setInventory]);
