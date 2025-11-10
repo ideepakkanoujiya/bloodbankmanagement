@@ -22,6 +22,13 @@ const initialDonors: Donor[] = [
     { id: "d9", name: "Ian Clark", bloodGroup: "O+", contact: "555-0109", lastDonation: "2024-05-20" },
     { id: "d10", name: "Jessica Lewis", bloodGroup: "A-", contact: "555-0110", lastDonation: "2024-06-11" },
     { id: "d11", name: "Kevin Walker", bloodGroup: "B+", contact: "555-0111", lastDonation: "2024-07-01" },
+    { id: "d12", name: "Laura Hall", bloodGroup: "AB-", contact: "555-0112", lastDonation: "2023-04-19" },
+    { id: "d13", name: "Mason Young", bloodGroup: "O-", contact: "555-0113", lastDonation: "2023-06-21" },
+    { id: "d14", name: "Nancy King", bloodGroup: "A+", contact: "555-0114", lastDonation: "2023-08-30" },
+    { id: "d15", name: "Oscar Wright", bloodGroup: "B-", contact: "555-0115", lastDonation: "2023-10-11" },
+    { id: "d16", name: "Patricia Scott", bloodGroup: "AB+", contact: "555-0116", lastDonation: "2023-12-15" },
+    { id: "d17", name: "Quentin Green", bloodGroup: "O+", contact: "555-0117", lastDonation: "2024-02-05" },
+    { id: "d18", name: "Rachel Adams", bloodGroup: "A-", contact: "555-0118", lastDonation: "2024-04-01" },
 ];
 
 function useLocalStorage<T>(key: string, initialValue: T) {
