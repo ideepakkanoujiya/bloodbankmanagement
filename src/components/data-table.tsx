@@ -47,17 +47,15 @@ export function DataTable<TData, TValue>({
     },
   })
 
-  const nameColumn = table.getColumn("name");
-  const patientNameColumn = table.getColumn("patientName");
-  
-  let filterColumn: Column<TData, unknown> | undefined;
-  let filterPlaceholder = "Filter...";
+  // Safely get the filter column
+  const filterableColumns = ['name', 'patientName'];
+  const filterColumnId = table.getAllColumns().find(c => filterableColumns.includes(c.id))?.id;
+  const filterColumn = filterColumnId ? table.getColumn(filterColumnId) : undefined;
 
-  if (nameColumn) {
-    filterColumn = nameColumn;
+  let filterPlaceholder = "Filter...";
+  if (filterColumnId === 'name') {
     filterPlaceholder = "Filter by name...";
-  } else if (patientNameColumn) {
-    filterColumn = patientNameColumn;
+  } else if (filterColumnId === 'patientName') {
     filterPlaceholder = "Filter by patient name...";
   }
 
